@@ -117,3 +117,6 @@ dist
 
 # Compiled code
 lib/
+
+# Retriever
+components-target
