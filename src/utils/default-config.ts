@@ -1,6 +1,6 @@
 export default {
   components: {
-    repository: 'https://github.com/Coyenn/retriever.git',
+    repository: 'https://github.com/Coyenn/retrieva.git',
     branch: 'main',
   },
   target: {

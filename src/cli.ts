@@ -9,7 +9,7 @@ const program = new Command();
 
 program
   .version(version)
-  .name('retriever')
+  .name('retrieva')
   .option('-d, --debug', 'enables verbose logging', false)
   .addCommand(initCommand)
   .addCommand(getCommand)

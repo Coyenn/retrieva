@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import {
-  assumeProjectHasRetrieverConfig,
+  assumeProjectHasRetrievaConfig,
   goToCurrentProjectRoot,
 } from '../utils/project';
 import { simpleGit } from 'simple-git';
@@ -10,9 +10,9 @@ import { exit } from 'process';
 
 function getComponent(component: string) {
   goToCurrentProjectRoot();
-  assumeProjectHasRetrieverConfig();
+  assumeProjectHasRetrievaConfig();
 
-  const config = require(`${process.cwd()}/retriever.json`);
+  const config = require(`${process.cwd()}/retrieva.json`);
   const repository = config.components.repository;
   const targetPath = config.target.path.replace(/^\.\//, '');
   const resolvedTargetPath = `${process.cwd()}/${targetPath}/${component}`;
@@ -26,15 +26,15 @@ function getComponent(component: string) {
   console.log(`Getting ${component} from ${repository}`);
 
   try {
-    fs.rmdirSync('/tmp/retriever-tmp-git-repo', { recursive: true });
+    fs.rmdirSync('/tmp/retrieva-tmp-git-repo', { recursive: true });
   } catch (e) {
     // Ignore
   }
 
   simpleGit()
-    .clone(repository, '/tmp/retriever-tmp-git-repo')
+    .clone(repository, '/tmp/retrieva-tmp-git-repo')
     .then(() => {
-      process.chdir('/tmp/retriever-tmp-git-repo/components');
+      process.chdir('/tmp/retrieva-tmp-git-repo/components');
 
       simpleGit()
         .checkout(config.components.branch)
@@ -50,7 +50,7 @@ function getComponent(component: string) {
             copyRecursiveSync(file, `${resolvedTargetPath}/${file}`);
           });
 
-          fs.rmdirSync('/tmp/retriever-tmp-git-repo', { recursive: true });
+          fs.rmdirSync('/tmp/retrieva-tmp-git-repo', { recursive: true });
 
           console.log('Done!');
         });

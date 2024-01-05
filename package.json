@@ -1,5 +1,5 @@
 {
-  "name": "retriever",
+  "name": "retrieva",
   "version": "0.0.1",
   "description": "On-demand component retrieval for TypeScript projects",
   "files": [
@@ -8,7 +8,7 @@
     "bin/**/*"
   ],
   "bin": {
-    "retriever": "./bin/index.js"
+    "retrieva": "bin/index.js"
   },
   "scripts": {
     "build": "tsc",

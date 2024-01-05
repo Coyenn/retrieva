@@ -8,14 +8,14 @@ export function goToCurrentProjectRoot() {
   process.chdir(getCurrentProjectRoot());
 }
 
-export function projectHasRetrieverConfig() {
-  return fs.existsSync('retriever.json');
+export function projectHasRetrievaConfig() {
+  return fs.existsSync('retrieva.json');
 }
 
-export function assumeProjectHasRetrieverConfig() {
-  if (!projectHasRetrieverConfig()) {
+export function assumeProjectHasRetrievaConfig() {
+  if (!projectHasRetrievaConfig()) {
     console.log(
-      'No retriever.json found in your project. Run retriever init to create one.'
+      'No retrieva.json found in your project. Run retrieva init to create one.'
     );
     process.exit(1);
   }
