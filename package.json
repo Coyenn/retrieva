@@ -32,7 +32,8 @@
     "components"
   ],
   "dependencies": {
-    "commander": "^11.1.0"
+    "commander": "^11.1.0",
+    "simple-git": "^3.22.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.6",
