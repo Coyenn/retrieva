@@ -1,6 +1,6 @@
 {
   "name": "retriever",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "On-demand component retrieval for TypeScript projects",
   "files": [
     "!lib/tests/**/*",
