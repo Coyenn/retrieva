@@ -26,7 +26,7 @@ function getComponent(component: string) {
   console.log(`Getting ${component} from ${repository}`);
 
   try {
-    fs.rmdirSync('/tmp/retrieva-tmp-git-repo', { recursive: true });
+    fs.rmSync('/tmp/retrieva-tmp-git-repo', { recursive: true });
   } catch (e) {
     // Ignore
   }
@@ -39,7 +39,6 @@ function getComponent(component: string) {
       simpleGit()
         .checkout(config.components.branch)
         .then(() => {
-          console.log(`Copying ${component} to ${logTargetPath}`);
           process.chdir(component);
 
           if (!fs.existsSync(resolvedTargetPath)) {
@@ -50,7 +49,7 @@ function getComponent(component: string) {
             copyRecursiveSync(file, `${resolvedTargetPath}/${file}`);
           });
 
-          fs.rmdirSync('/tmp/retrieva-tmp-git-repo', { recursive: true });
+          fs.rmSync('/tmp/retrieva-tmp-git-repo', { recursive: true });
 
           console.log('Done!');
         });
