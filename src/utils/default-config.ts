@@ -6,5 +6,5 @@ export default {
   },
   target: {
     path: './components',
-  }
-}
+  },
+};

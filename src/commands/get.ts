@@ -1,5 +1,8 @@
 import { Command } from 'commander';
-import { assumeProjectHasRetrieverConfig, goToCurrentProjectRoot } from '../utils/project';
+import {
+  assumeProjectHasRetrieverConfig,
+  goToCurrentProjectRoot,
+} from '../utils/project';
 import { simpleGit } from 'simple-git';
 import fs from 'fs';
 import copyRecursiveSync from '../utils/copy-recursive-sync';
@@ -15,7 +18,7 @@ function getComponent(component: string) {
   const resolvedTargetPath = `${process.cwd()}/${targetPath}/${component}`;
   const logTargetPath = `${targetPath}/${component}`;
 
-  if(fs.existsSync(resolvedTargetPath)) {
+  if (fs.existsSync(resolvedTargetPath)) {
     console.error(`The component ${component} is already in ${logTargetPath}`);
     exit(1);
   }
@@ -28,26 +31,30 @@ function getComponent(component: string) {
     // Ignore
   }
 
-  simpleGit().clone(repository, '/tmp/retriever-tmp-git-repo').then(() => {
-    process.chdir('/tmp/retriever-tmp-git-repo/components');
+  simpleGit()
+    .clone(repository, '/tmp/retriever-tmp-git-repo')
+    .then(() => {
+      process.chdir('/tmp/retriever-tmp-git-repo/components');
 
-    simpleGit().checkout(config.components.branch).then(() => {
-      console.log(`Copying ${component} to ${logTargetPath}`);
-      process.chdir(component);
+      simpleGit()
+        .checkout(config.components.branch)
+        .then(() => {
+          console.log(`Copying ${component} to ${logTargetPath}`);
+          process.chdir(component);
 
-      if (!fs.existsSync(resolvedTargetPath)) {
-        fs.mkdirSync(resolvedTargetPath, { recursive: true });
-      }
+          if (!fs.existsSync(resolvedTargetPath)) {
+            fs.mkdirSync(resolvedTargetPath, { recursive: true });
+          }
 
-      fs.readdirSync('.').forEach((file) => {
-        copyRecursiveSync(file, `${resolvedTargetPath}/${file}`);
-      });
+          fs.readdirSync('.').forEach(file => {
+            copyRecursiveSync(file, `${resolvedTargetPath}/${file}`);
+          });
 
-      fs.rmdirSync('/tmp/retriever-tmp-git-repo', { recursive: true });
+          fs.rmdirSync('/tmp/retriever-tmp-git-repo', { recursive: true });
 
-      console.log('Done!');
+          console.log('Done!');
+        });
     });
-  });
 }
 
 const getCommand = new Command('get')

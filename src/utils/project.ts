@@ -14,7 +14,9 @@ export function projectHasRetrieverConfig() {
 
 export function assumeProjectHasRetrieverConfig() {
   if (!projectHasRetrieverConfig()) {
-    console.log('No retriever.json found in your project. Run retriever init to create one.');
+    console.log(
+      'No retriever.json found in your project. Run retriever init to create one.'
+    );
     process.exit(1);
   }
 }
