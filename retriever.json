@@ -1,8 +1,7 @@
 {
   "components": {
     "repository": "https://github.com/Coyenn/retriever.git",
-    "branch": "main",
-    "tag": "latest"
+    "branch": "main"
   },
   "target": {
     "path": "./components-target"
