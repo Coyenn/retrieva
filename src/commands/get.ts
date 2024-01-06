@@ -128,7 +128,7 @@ async function getComponent(components: string | string[]) {
 }
 
 const getCommand = new Command('get')
-  .description('Get one or more components from the remote repository')
+  .description('Get one or more components')
   .arguments('<components...>')
   .action(getComponent);
 

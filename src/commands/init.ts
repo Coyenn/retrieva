@@ -26,7 +26,7 @@ function initializeProject() {
 }
 
 const initCommand = new Command('init')
-  .description('Creates a new config for a project')
+  .description('Creates a new retrieva.json config in the current directory')
   .action(initializeProject);
 
 export default initCommand;
