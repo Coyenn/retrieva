@@ -1,7 +1,7 @@
 export default {
   source: {
     repository: 'https://github.com/Coyenn/retrieva.git',
-    branch: 'main',
+    checkout: 'main',
     path: './components',
   },
   target: {

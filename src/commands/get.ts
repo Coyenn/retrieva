@@ -95,7 +95,7 @@ async function getComponent(components: string | string[]) {
     .clone(repository, fetchTempDirectory)
     .then(() => {
       simpleGit()
-        .checkout(config.source.branch)
+        .checkout(config.source.checkout)
         .then(() => {
           if (typeof components === 'string') {
             spinner.text = `Retrieving ${components}...`;

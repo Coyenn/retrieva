@@ -37,7 +37,7 @@ async function listComponent() {
     .clone(repository, fetchTempDirectory)
     .then(() => {
       simpleGit()
-        .checkout(config.source.branch)
+        .checkout(config.source.checkout)
         .then(() => {
           spinner.succeed(`Fetched ${repository}`);
 
