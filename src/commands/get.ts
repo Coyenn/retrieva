@@ -9,6 +9,7 @@ import copyRecursiveSync from '../utils/copy-recursive-sync';
 import defaultConfig from '../utils/default-config';
 import path from 'path';
 import { exit } from 'process';
+import { globSync } from 'glob';
 
 function copyComponent(
   component: string,
@@ -26,15 +27,27 @@ function copyComponent(
     path.normalize(config.source.path)
   );
 
-  console.log(`Getting ${component} from ${repository}`);
+  console.log(`Retrieving ${component}`);
 
-  const componentSourcePath = path.resolve(sourcePath, component);
-  const componentTargetPath = path.resolve(targetPath, component);
+  let componentSourcePath = path.resolve(sourcePath, component);
+  let componentType: 'directory' | 'file' = 'directory';
+  let componentTargetPath = path.resolve(targetPath, component);
   const logTargetPath = path.relative(projectRootPath, componentTargetPath);
 
   if (!fs.existsSync(componentSourcePath)) {
-    console.error(`The component ${component} does not exist in ${repository}`);
-    exit(1);
+    componentSourcePath = globSync(`${componentSourcePath}.*`)[0]; // The component could be a file, not a directory
+    componentTargetPath = path.resolve(
+      targetPath,
+      component + path.extname(componentSourcePath)
+    );
+    componentType = 'file';
+
+    if (!fs.existsSync(componentSourcePath)) {
+      console.error(
+        `The component ${component} does not exist in ${repository}`
+      );
+      exit(1);
+    }
   }
 
   if (fs.existsSync(componentTargetPath)) {
@@ -42,15 +55,19 @@ function copyComponent(
     return;
   }
 
-  process.chdir(componentSourcePath);
+  if (componentType === 'directory') {
+    process.chdir(componentSourcePath);
 
-  if (!fs.existsSync(componentTargetPath)) {
-    fs.mkdirSync(componentTargetPath, { recursive: true });
+    if (!fs.existsSync(componentTargetPath)) {
+      fs.mkdirSync(componentTargetPath, { recursive: true });
+    }
+
+    fs.readdirSync('.').forEach(file => {
+      copyRecursiveSync(file, `${componentTargetPath}/${file}`);
+    });
+  } else {
+    fs.copyFileSync(componentSourcePath, componentTargetPath);
   }
-
-  fs.readdirSync('.').forEach(file => {
-    copyRecursiveSync(file, `${componentTargetPath}/${file}`);
-  });
 }
 
 function getComponent(components: string | string[]) {
