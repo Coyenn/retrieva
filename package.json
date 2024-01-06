@@ -1,6 +1,6 @@
 {
   "name": "retrieva",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "On-demand component retrieval for TypeScript projects",
   "files": [
     "!lib/tests/**/*",
@@ -24,7 +24,7 @@
     "url": "https://github.com/coyenn"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=18.0.0"
   },
   "keywords": [
     "cli",

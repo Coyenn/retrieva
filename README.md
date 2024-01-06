@@ -6,6 +6,11 @@
 
 A CLI tool for retrieving components from a remote repository. Similar to `npm install` but for components. There's no updating mechanism, so you can edit and modify installed components as you wish.
 
+## Prerequisites
+
+- Node.js 18 or higher
+- Git
+
 ## Installation
 
 First, you need to install the package. You can do this globally or locally.
