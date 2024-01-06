@@ -1,6 +1,6 @@
 {
   "name": "retrieva",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "On-demand component retrieval for TypeScript projects",
   "files": [
     "!lib/tests/**/*",
