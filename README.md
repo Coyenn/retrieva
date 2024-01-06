@@ -32,7 +32,7 @@ yarn global add retrieva
 
 ### Initialization
 
-Any project using retrieva must have a `retrieva.json` file in the root directory.
+Any project using retrieva must have a `retrieva.json` file in the root directory. The init command will create this file for you.
 
 ```bash
 retrieva init
@@ -43,5 +43,5 @@ retrieva init
 To install one or more components, use the `get` command. Retrieva will then fetch the remote repository and install the components in the local project.
 
 ```bash
-retrieva get <components...>
+retrieva get <components...> # e.g. retrieva get button card
 ```
