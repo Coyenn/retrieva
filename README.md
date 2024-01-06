@@ -1,5 +1,9 @@
 # retrieva
 
+<p align="center">
+  <img src="./assets/logo.svg" alt="Retrieva logo" width="150" />
+</p>
+
 A CLI tool for retrieving components from a remote repository. Similar to `npm install` but for components. There's no updating mechanism, so you can edit and modify installed components as you wish.
 
 ## Installation
