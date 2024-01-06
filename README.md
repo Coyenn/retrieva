@@ -43,6 +43,8 @@ Any project using retrieva must have a `retrieva.json` file in the root director
 retrieva init
 ```
 
+Interested in how the `retrieva.json` file looks like? Check out the one in this repository [here](./retrieva.json).
+
 ### Retrieval
 
 To install one or more components, use the `get` command. Retrieva will then fetch the remote repository and install the components in the local project.
