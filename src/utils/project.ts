@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 
 export function getCurrentProjectRoot() {
   return process.cwd();
@@ -9,7 +10,7 @@ export function goToCurrentProjectRoot() {
 }
 
 export function projectHasRetrievaConfig() {
-  return fs.existsSync('retrieva.json');
+  return fs.existsSync(path.resolve(getCurrentProjectRoot(), 'retrieva.json'));
 }
 
 export function assumeProjectHasRetrievaConfig() {

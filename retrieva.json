@@ -1,9 +1,11 @@
 {
-  "components": {
+  "source": {
     "repository": "https://github.com/Coyenn/retrieva.git",
-    "branch": "main"
+    "branch": "main",
+    "path": "./components"
   },
   "target": {
     "path": "./components-target"
-  }
+  },
+  "fetchTempDirectory": "/tmp/retrieva-tmp-git-repo"
 }

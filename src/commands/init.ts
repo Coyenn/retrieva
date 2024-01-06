@@ -1,10 +1,12 @@
 import { Command } from 'commander';
 import {
+  getCurrentProjectRoot,
   goToCurrentProjectRoot,
   projectHasRetrievaConfig,
 } from '../utils/project';
 import fs from 'fs';
 import defaultConfig from '../utils/default-config';
+import path from 'path';
 
 function initializeProject() {
   goToCurrentProjectRoot();
@@ -15,7 +17,10 @@ function initializeProject() {
     );
     return;
   } else {
-    fs.writeFileSync('retrieva.json', JSON.stringify(defaultConfig, null, 2));
+    fs.writeFileSync(
+      path.resolve(getCurrentProjectRoot(), 'retrieva.json'),
+      JSON.stringify(defaultConfig, null, 2)
+    );
     console.log('Wrote config to retrieva.json. Edit it to your needs.');
   }
 }
