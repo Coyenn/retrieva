@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
+    "module": "NodeNext",
     "strict": true,
     "outDir": "lib/",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "declaration": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "NodeNext"
   },
   "include": ["src/**/*.ts"]
 }

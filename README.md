@@ -1,35 +1,43 @@
 # retrieva
 
-On-demand component retrieval for TypeScript projects
+A CLI tool for retrieving components from a remote repository. Similar to `npm install` but for components. There's no updating mechanism, so you can edit and modify installed components as you wish.
 
 ## Installation
 
-### Global
+First, you need to install the package. You can do this globally or locally.
+
+### NPM
 
 ```bash
 npm i -g retrieva
 ```
 
-### Local
+### PNPM
 
 ```bash
-npm i -D retrieva
+pnpm i -g retrieva
+```
+
+### Yarn
+
+```bash
+yarn global add retrieva
 ```
 
 ## Usage
 
 ### Initialization
 
-Any project using retrieva must have a `retrieva.json` file in the root directory. This file contains the configuration for retrieva.
+Any project using retrieva must have a `retrieva.json` file in the root directory.
 
 ```bash
 retrieva init
 ```
 
-This will create a `retrieva.json` file in the current directory. Configure the file to your liking.
-
 ### Retrieval
 
+To install one or more components, use the `get` command. Retrieva will then fetch the remote repository and install the components in the local project.
+
 ```bash
-retrieva get <component>
+retrieva get <components...>
 ```

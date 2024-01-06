@@ -14,7 +14,8 @@ import { globSync } from 'glob';
 function copyComponent(
   component: string,
   projectRootPath: string,
-  config: typeof defaultConfig
+  config: typeof defaultConfig,
+  spinner: any
 ) {
   const repository = config.source.repository;
   const targetPath = path.resolve(
@@ -26,8 +27,6 @@ function copyComponent(
     fetchTempDirectory,
     path.normalize(config.source.path)
   );
-
-  console.log(`Retrieving ${component}`);
 
   let componentSourcePath = path.resolve(sourcePath, component);
   let componentType: 'directory' | 'file' = 'directory';
@@ -43,7 +42,7 @@ function copyComponent(
     componentType = 'file';
 
     if (!fs.existsSync(componentSourcePath)) {
-      console.error(
+      spinner.error(
         `The component ${component} does not exist in ${repository}`
       );
       exit(1);
@@ -51,26 +50,29 @@ function copyComponent(
   }
 
   if (fs.existsSync(componentTargetPath)) {
-    console.warn(`The component ${component} is already in ${logTargetPath}`);
+    spinner.warn(`The component ${component} is already in ${logTargetPath}`);
     return;
   }
 
   if (componentType === 'directory') {
-    process.chdir(componentSourcePath);
-
     if (!fs.existsSync(componentTargetPath)) {
       fs.mkdirSync(componentTargetPath, { recursive: true });
     }
 
-    fs.readdirSync('.').forEach(file => {
-      copyRecursiveSync(file, `${componentTargetPath}/${file}`);
+    fs.readdirSync(componentSourcePath).forEach(file => {
+      copyRecursiveSync(
+        path.resolve(componentSourcePath, file),
+        `${componentTargetPath}/${file}`
+      );
     });
   } else {
     fs.copyFileSync(componentSourcePath, componentTargetPath);
   }
 }
 
-function getComponent(components: string | string[]) {
+async function getComponent(components: string | string[]) {
+  const { default: ora } = await import('ora');
+
   goToCurrentProjectRoot();
   assumeProjectHasRetrievaConfig();
 
@@ -87,7 +89,8 @@ function getComponent(components: string | string[]) {
     // Ignore
   }
 
-  console.log(`Fetching ${repository}...`);
+  const spinner = ora(`Fetching ${repository}...\n`).start();
+
   simpleGit()
     .clone(repository, fetchTempDirectory)
     .then(() => {
@@ -95,17 +98,27 @@ function getComponent(components: string | string[]) {
         .checkout(config.source.branch)
         .then(() => {
           if (typeof components === 'string') {
-            copyComponent(components, projectRootPath, config);
+            spinner.text = `Retrieving ${components}...`;
+            copyComponent(components, projectRootPath, config, spinner);
           } else {
-            components.forEach(component =>
-              copyComponent(component, projectRootPath, config)
-            );
+            components.forEach(component => {
+              spinner.text = `Retrieving ${component}...`;
+              copyComponent(component, projectRootPath, config, spinner);
+            });
           }
 
-          console.log('Done!');
+          spinner.succeed(
+            `Retrieved ${
+              typeof components === 'string'
+                ? components
+                : components.join(', ')
+            }`
+          );
         })
         .finally(() => {
           try {
+            spinner.clear();
+            spinner.stop();
             fs.rmSync(fetchTempDirectory, { recursive: true });
           } catch (e) {
             console.error(e);
