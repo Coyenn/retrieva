@@ -10,11 +10,12 @@ import defaultConfig from '../utils/default-config';
 import path from 'path';
 import { exit } from 'process';
 import { globSync } from 'glob';
+import Config from '../types/config';
 
 function copyComponent(
   component: string,
   projectRootPath: string,
-  config: typeof defaultConfig,
+  config: Config,
   spinner: any
 ) {
   const repository = config.source.repository;
@@ -22,7 +23,9 @@ function copyComponent(
     projectRootPath,
     path.normalize(config.target.path)
   );
-  const fetchTempDirectory = path.resolve(config.fetchTempDirectory);
+  const fetchTempDirectory = path.resolve(
+    config.fetchTempDirectory ?? '/tmp/retrieva-tmp-git-repo'
+  );
   const sourcePath = path.resolve(
     fetchTempDirectory,
     path.normalize(config.source.path)
@@ -79,9 +82,11 @@ async function getComponent(components: string | string[]) {
   const projectRootPath = process.cwd();
   const config = require(
     path.resolve(projectRootPath, 'retrieva.json')
-  ) as typeof defaultConfig;
+  ) as Config;
   const repository = config.source.repository;
-  const fetchTempDirectory = path.resolve(config.fetchTempDirectory);
+  const fetchTempDirectory = path.resolve(
+    config.fetchTempDirectory ?? '/tmp/retrieva-tmp-git-repo'
+  );
 
   try {
     fs.rmSync(fetchTempDirectory, { recursive: true });
@@ -95,7 +100,7 @@ async function getComponent(components: string | string[]) {
     .clone(repository, fetchTempDirectory)
     .then(() => {
       simpleGit()
-        .checkout(config.source.checkout)
+        .checkout(config.source.checkout ?? 'main')
         .then(() => {
           if (typeof components === 'string') {
             spinner.text = `Retrieving ${components}...`;

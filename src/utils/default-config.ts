@@ -1,3 +1,5 @@
+import Config from '../types/config';
+
 export default {
   source: {
     repository: 'https://github.com/Coyenn/retrieva.git',
@@ -8,4 +10,4 @@ export default {
     path: './components',
   },
   fetchTempDirectory: '/tmp/retrieva-tmp-git-repo',
-};
+} satisfies Config;
