@@ -1,8 +1,5 @@
 import { Command } from 'commander';
-import {
-  assumeProjectHasRetrievaConfig,
-  goToCurrentProjectRoot,
-} from '../utils/project';
+import { enforceProjectConfig, goToCurrentProjectRoot } from '../utils/project';
 import { simpleGit } from 'simple-git';
 import fs from 'fs';
 import copyRecursiveSync from '../utils/copy-recursive-sync';
@@ -77,7 +74,7 @@ async function getComponent(components: string | string[]) {
   const { default: ora } = await import('ora');
 
   goToCurrentProjectRoot();
-  assumeProjectHasRetrievaConfig();
+  enforceProjectConfig();
 
   const projectRootPath = process.cwd();
   const config = require(

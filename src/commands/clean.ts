@@ -1,8 +1,5 @@
 import { Command } from 'commander';
-import {
-  assumeProjectHasRetrievaConfig,
-  goToCurrentProjectRoot,
-} from '../utils/project';
+import { enforceProjectConfig, goToCurrentProjectRoot } from '../utils/project';
 import fs from 'fs';
 import defaultConfig from '../utils/default-config';
 import path from 'path';
@@ -12,7 +9,7 @@ async function cleanComponent() {
   const { default: ora } = await import('ora');
 
   goToCurrentProjectRoot();
-  assumeProjectHasRetrievaConfig();
+  enforceProjectConfig();
 
   const projectRootPath = process.cwd();
   const config = require(

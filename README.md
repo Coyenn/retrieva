@@ -1,7 +1,7 @@
 # retrieva
 
 <p align="center">
-  <img src="./assets/logo.svg" alt="Retrieva logo" width="150" />
+  <img src="https://raw.githubusercontent.com/Coyenn/retrieva/main/assets/logo.svg" alt="Retrieva logo" width="150" />
 </p>
 
 A CLI tool for retrieving components from a remote repository. Similar to `npm install` but for components. There's no updating mechanism, so you can edit and modify installed components as you wish.
@@ -41,7 +41,7 @@ yarn global add retrieva
 
 ### Initialization
 
-Any project using retrieva must have a `retrieva.json` file in the root directory. The init command will create this file for you.
+Any project using retrieva must have a `retrieva.json` present file in the root directory. The init command will create this file for you.
 
 ```bash
 retrieva init

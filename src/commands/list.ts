@@ -1,8 +1,5 @@
 import { Command } from 'commander';
-import {
-  assumeProjectHasRetrievaConfig,
-  goToCurrentProjectRoot,
-} from '../utils/project';
+import { enforceProjectConfig, goToCurrentProjectRoot } from '../utils/project';
 import { simpleGit } from 'simple-git';
 import fs from 'fs';
 import defaultConfig from '../utils/default-config';
@@ -12,7 +9,7 @@ async function listComponent() {
   const { default: ora } = await import('ora');
 
   goToCurrentProjectRoot();
-  assumeProjectHasRetrievaConfig();
+  enforceProjectConfig();
 
   const projectRootPath = process.cwd();
   const config = require(

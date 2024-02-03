@@ -13,7 +13,7 @@ export function projectHasRetrievaConfig() {
   return fs.existsSync(path.resolve(getCurrentProjectRoot(), 'retrieva.json'));
 }
 
-export function assumeProjectHasRetrievaConfig() {
+export function enforceProjectConfig() {
   if (!projectHasRetrievaConfig()) {
     console.log(
       'No retrieva.json found in your project. Run retrieva init to create one.'

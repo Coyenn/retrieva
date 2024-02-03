@@ -2,6 +2,7 @@
   "name": "retrieva",
   "version": "1.1.0",
   "description": "On-demand component retrieval for TypeScript projects",
+  "homepage": "https://github.com/Coyenn/retrieva",
   "files": [
     "!lib/tests/**/*",
     "lib/**/*",
